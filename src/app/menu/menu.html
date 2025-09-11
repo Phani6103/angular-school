@@ -1,0 +1,7 @@
+<ul>
+     @for (item of menuItems; track item.id) {
+        <li>    
+            <a [routerLink]="item.link">{{item.displayName}}</a>
+        </li>
+    }
+</ul>
