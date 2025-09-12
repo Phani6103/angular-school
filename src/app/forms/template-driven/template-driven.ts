@@ -37,10 +37,24 @@ export class TemplateDriven implements OnInit {
     return this.form.password === this.form.confirmPassword;
   }
 
+  isEmailValid(): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(this.form.email);
+  }
+
+  isPasswordStrong(): boolean {
+    // At least 8 characters, one uppercase, one lowercase, one number, one special character
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(this.form.password);
+  }
+
+
   get isFormValid(): boolean {
     return this.form.name.trim() !== '' &&
            this.form.email.trim() !== '' &&
-           this.validatePasswordMatch();
+           this.validatePasswordMatch() &&
+           this.isEmailValid() &&
+           this.isPasswordStrong();
   }
 
   onSubmit(form: SignupFormFields) {
