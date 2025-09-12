@@ -1,20 +1,20 @@
 <div>
     <h2>Template Driven Form</h2>
-    <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm.value)">
-        <p>Your name is: {{ name }}</p>
-        <input type="text" [(ngModel)]="name" name="name" placeholder="Enter your name" />
+    <form #myForm="ngForm" (ngSubmit)="onSubmit(form)">
+        <p>Your name is: {{ form.name }}</p>
+        <input type="text" [(ngModel)]="form.name" name="name" placeholder="Enter your name" />
         
-        <p>Your email is: {{ email }}</p>
-        <input type="text" [(ngModel)]="email" name="email" placeholder="Enter your email"/>
+        <p>Your email is: {{ form.email }}</p>
+        <input type="text" [(ngModel)]="form.email" name="email" placeholder="Enter your email"/>
         
-        <p>Your password is: {{ password }}</p>
-        <input type="password" [(ngModel)]="password" name="password" placeholder="Enter your password" />
+        <p>Your password is: {{ form.password }}</p>
+        <input type="password" [(ngModel)]="form.password" name="password" placeholder="Enter your password" />
 
-        <p>Confirm your password: {{ confirmPassword }}</p>
-        <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="Confirm your password" />
+        <p>Confirm your password: {{ form.confirmPassword }}</p>
+        <input type="password" [(ngModel)]="form.confirmPassword" name="confirmPassword" placeholder="Confirm your password" />
 
         <p>
-            <input type="checkbox" [(ngModel)]="optInForNewsletter" name="optInForNewsletter" />
+            <input type="checkbox" [(ngModel)]="form.optInForNewsletter" name="optInForNewsletter" />
             Opt-in for newsletter
         </p>
         <button [disabled]="!validatePasswordMatch()" type="submit">Submit</button>
