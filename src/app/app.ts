@@ -9,5 +9,5 @@ import { Menu } from "./menu/menu";
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('Angular School');
+  protected readonly title = 'Angular School';
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -10,7 +10,6 @@ import { RouterLink } from '@angular/router';
   styleUrl: './menu.scss'
 })
 export class Menu {
-
   menuItems = [
     {
       id: 1,
