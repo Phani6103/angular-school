@@ -40,16 +40,8 @@ export class Menu {
       link: '/lifecycle-hooks'
     },
     {
-      displayName: 'Template Driven Signal Form',
-      link: '/template-driven-signal-form'
-    },
-    {
-      displayName: 'Template Driven Form',
-      link: '/template-driven-form'
-    },
-    {
-      displayName: 'Reactive Form',
-      link: '/reactive-form'
+      displayName: 'Forms',
+      link: '/forms'
     }
     ];
 

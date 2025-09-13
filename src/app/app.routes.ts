@@ -1,4 +1,8 @@
 import { Routes } from '@angular/router';
+import { FormsComponent } from './components/forms/forms.component';
+import { TemplateDriven } from './components/forms/template-driven/template-driven';
+import { TemplateDrivenSignalFormComponent } from './components/forms/template-driven-signal-form/template-driven-signal-form.component';
+import { Reactive } from './components/forms/reactive/reactive';
 
 export const routes: Routes = [
     {
@@ -16,18 +20,16 @@ export const routes: Routes = [
     {
         path: 'parent-component',
         loadComponent: () => import('./components/parent/parent-component').then(m => m.ParentComponent)
-    },
+    },  
     {
-        path: 'reactive-form',
-        loadComponent: () => import('./components/forms/reactive/reactive').then(m => m.Reactive)
-    },
-    {
-        path: 'template-driven-form',
-        loadComponent: () => import('./components/forms/template-driven/template-driven').then(m => m.TemplateDriven)
-    },
-    {
-        path: 'template-driven-signal-form',
-        loadComponent: () => import('./components/forms/template-driven-signal-form/template-driven-signal-form').then(m => m.TemplateDrivenSignalForm)
+        path: 'forms',
+        component: FormsComponent, // The parent container
+        children: [
+        { path: 'template-driven', component:  TemplateDriven},
+        { path: 'signal-form', component: TemplateDrivenSignalFormComponent },
+        { path: 'reactive-form', component: Reactive },
+        { path: '', redirectTo: 'template-driven', pathMatch: 'full' },
+        ]
     },
     {
         path: 'signals',
