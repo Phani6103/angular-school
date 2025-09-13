@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SignupFormService } from '../../../services/signup-form.service';
@@ -9,7 +9,8 @@ import { SignupFormFields } from '../../../modal/signup-form-fields';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './template-driven-signal-form.html',
-  styleUrl: './template-driven-signal-form.scss'
+  styleUrl: './template-driven-signal-form.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TemplateDrivenSignalFormComponent {
   private signupService = inject(SignupFormService);

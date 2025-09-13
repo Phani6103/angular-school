@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsMenuComponent } from './template-driven-signal-form/forms-menu.component';
 
@@ -6,6 +6,7 @@ import { FormsMenuComponent } from './template-driven-signal-form/forms-menu.com
   selector: 'app-forms',
   imports: [RouterModule, FormsMenuComponent],
   templateUrl: './forms.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormsComponent {
 
