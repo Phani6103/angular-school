@@ -9,7 +9,9 @@
         <!-- Email Input -->
         <input type="text" [ngModel]="formState().email" (ngModelChange)="onFieldChange('email', $event)" name="email" placeholder="Enter your email" required #emailField="ngModel" [ngClass]="{'error-field': emailField.invalid && emailField.touched || (emailField.valid && !isEmailValid() && emailField.touched)}"/>
         <p [class.mb-0]="emailField.invalid && emailField.touched">Your email is: {{ formState().email }}</p>
-        <p *ngIf="emailField.invalid && emailField.touched" style="color: red;">Email is required.</p>
+        @if(emailField.invalid && emailField.touched) {
+            <p style="color: red;">Email is required.</p>
+        }
         <p *ngIf="emailField.valid && !isEmailValid() && emailField.touched" style="color: red;">Please enter a valid email address.</p>
         
         <!-- Password Input -->

@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, effect } from '@angular/core';
 import { SignupFormFields } from '../modal/signup-form-fields';
 
 @Injectable({
@@ -42,17 +42,22 @@ export class SignupFormService {
   });
 
   constructor() {
-    // Set initial test data, moved from the component's ngOnInit
-    this.formState.set({
-      name: 'Test User',
-      email: 'testUser@gmail.com',
-      password: '12345',
-      confirmPassword: '12345',
-      optInForNewsletter: true,
+    // 1. On startup, try to load the form state from localStorage.
+    const savedState = localStorage.getItem('signupFormState');
+    if (savedState) {
+      this.formState.set(JSON.parse(savedState));
+    }
+
+    // 2. Create an effect that automatically saves the form state to localStorage
+    //    whenever the formState signal changes.
+    effect(() => {
+      const state = this.formState();
+      console.log('Effect triggered: Saving form state to localStorage', state);
+      localStorage.setItem('signupFormState', JSON.stringify(state));
     });
   }
 
-  // 3. A method to update the state from the component
+  // A method to update the state from the component
   updateFormState(newState: Partial<SignupFormFields>) {
     this.formState.update(currentState => ({ ...currentState, ...newState }));
   }
