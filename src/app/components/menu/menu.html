@@ -6,7 +6,7 @@
             <rect y="18" width="24" height="2" rx="1" fill="currentColor"/>
         </svg>
     </span>
-    @for (item of menuItems; track item.id) {
+    @for (item of menuItems; track $index+1) {
         <li class="nav-item">
             <a class="nav-link" [routerLink]="item.link">{{item.displayName}}</a>
         </li>
