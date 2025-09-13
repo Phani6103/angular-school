@@ -1,0 +1,45 @@
+<div>
+    <h2>Template Driven Form</h2>
+    <form #myForm="ngForm" (ngSubmit)="onSubmit(form)">
+        <input type="text" [(ngModel)]="form.name" name="name" placeholder="Enter your name" required #nameField="ngModel" [ngClass]="{'error-field': nameField.invalid && nameField.touched}"/>
+        <p [class.mb-0]="nameField.invalid && nameField.touched">Your name is: {{ form.name }}</p>
+        <p *ngIf="nameField.invalid && nameField.touched" style="color: red;">Name is required.</p>
+        
+        <input type="text" [(ngModel)]="form.email" name="email" placeholder="Enter your email" required #emailField="ngModel" [ngClass]="{'error-field': emailField.invalid && emailField.touched || (emailField.valid && !isEmailValid() && emailField.touched)}"/>
+        <p [class.mb-0]="emailField.invalid && emailField.touched">Your email is: {{ form.email }}</p>
+        <p *ngIf="emailField.invalid && emailField.touched" style="color: red;">Email is required.</p>
+        <p *ngIf="emailField.valid && !isEmailValid() && emailField.touched" style="color: red;">Please enter a valid email address.</p>
+        
+        <input type="password" [(ngModel)]="form.password" name="password" placeholder="Enter your password" required #passwordField="ngModel" [ngClass]="{'error-field': passwordField.invalid && passwordField.touched || !isPasswordStrong()}"/>
+        <p [class.mb-0]="passwordField.invalid && passwordField.touched">Your password is: {{ form.password }}</p>
+        <p *ngIf="passwordField.invalid && passwordField.touched" style="color: red;">Password is required.</p>
+        <p *ngIf="!isPasswordStrong()">Password must be at least 8 characters long, contain one uppercase, one lowercase, one number, and one special character.</p>
+
+        <input type="password" [(ngModel)]="form.confirmPassword" name="confirmPassword" placeholder="Confirm your password" required #confirmPasswordField="ngModel" [ngClass]="{'error-field': confirmPasswordField.invalid && confirmPasswordField.touched || (confirmPasswordField.valid && !validatePasswordMatch() && confirmPasswordField.touched)}"/>
+        <p [class.mb-0]="confirmPasswordField.invalid && confirmPasswordField.touched">Confirm your password: {{ form.confirmPassword }}</p>
+        <p *ngIf="confirmPasswordField.invalid && confirmPasswordField.touched" style="color: red;">Confirm Password is required.</p>
+        <p *ngIf="confirmPasswordField.valid && !validatePasswordMatch() && confirmPasswordField.touched" style="color: red;">Passwords do not match.</p>
+
+        <p>
+            <input type="checkbox" [(ngModel)]="form.optInForNewsletter" name="optInForNewsletter" />
+            Opt-in for newsletter
+        </p>
+        <p *ngIf="!isFormValid" style="color: red;">
+            Please fill out all required fields and ensure all validations pass before submitting.
+        </p>
+
+        <button [ngClass]="isFormValid ? 'btn btn-primary me-3' : 'btn btn-secondary me-3'" [disabled]="!isFormValid" type="submit">Submit</button>
+        <button class="btn btn-secondary" (click)="resetForm(myForm)">Reset Form</button>
+    </form>
+</div>
+
+<style>
+    input {
+        margin-bottom: 2px; /* Reduced margin */
+        padding: 5px;
+    }
+
+    .error-field {
+        border: 1px solid red;
+    }
+</style>
