@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Menu } from "./menu/menu";
+import { Menu } from "./components/menu/menu";
+import { SharedStateService } from './services/shared-state.service';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,6 @@ import { Menu } from "./menu/menu";
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = 'Angular School';
+  private readonly sharedStateService = inject(SharedStateService);
+  protected readonly title = this.sharedStateService.title.asReadonly();
 }

@@ -3,11 +3,11 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
     {
         path: '',
-        loadComponent: () => import('./home/home').then(m => m.Home)
+        loadComponent: () => import('./components/home/home').then(m => m.Home)
     },
     {
         path: 'home',
-        loadComponent: () => import('./home/home').then(m => m.Home)
+        loadComponent: () => import('./components/home/home').then(m => m.Home)
     },
     {
         path: 'child-component',
@@ -19,18 +19,18 @@ export const routes: Routes = [
     },
     {
         path: 'reactive-form',
-        loadComponent: () => import('./forms/reactive/reactive').then(m => m.Reactive)
+        loadComponent: () => import('./components/forms/reactive/reactive').then(m => m.Reactive)
     },
     {
         path: 'template-driven-form',
-        loadComponent: () => import('./forms/template-driven/template-driven').then(m => m.TemplateDriven)
+        loadComponent: () => import('./components/forms/template-driven/template-driven').then(m => m.TemplateDriven)
     },
     {
         path: 'signals',
-        loadComponent: () => import('./signals/signals').then(m => m.Signals)
+        loadComponent: () => import('./components/signals/signals').then(m => m.Signals)
     },
     {
         path: '**',
-        loadComponent: () => import('./not-found/not-found').then(m => m.NotFound)
+        loadComponent: () => import('./components/not-found/not-found').then(m => m.NotFound)
     }
 ];
