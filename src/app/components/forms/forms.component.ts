@@ -4,6 +4,7 @@ import { FormsMenuComponent } from './template-driven-signal-form/forms-menu.com
 
 @Component({
   selector: 'app-forms',
+  standalone: true,
   imports: [RouterModule, FormsMenuComponent],
   templateUrl: './forms.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush

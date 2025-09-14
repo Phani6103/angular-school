@@ -21,6 +21,9 @@ export class TemplateDrivenSignalFormComponent {
   doPasswordsMatch = this.signupService.doPasswordsMatch;
   isEmailValid = this.signupService.isEmailValid;
   isPasswordStrong = this.signupService.isPasswordStrong;
+  // API states
+  loading = this.signupService.loading;
+  error = this.signupService.error;
 
   // This method allows the template to update the signal state in the service
   onFieldChange<K extends keyof SignupFormFields>(field: K, value: SignupFormFields[K]) {
@@ -28,8 +31,8 @@ export class TemplateDrivenSignalFormComponent {
   }
 
   onSubmit() {
-    // Get the latest value from the signal for submission
-    console.log('Signal Form submitted:', this.formState());
+    // Delegate submission to the service
+    this.signupService.submitForm();
   }
 
   resetForm() {

@@ -22,6 +22,9 @@ export class TemplateDrivenSignalForm {
   doPasswordsMatch = this.signupService.doPasswordsMatch;
   isEmailValid = this.signupService.isEmailValid;
   isPasswordStrong = this.signupService.isPasswordStrong;
+  // API states
+  loading = this.signupService.loading;
+  error = this.signupService.error;
 
   // Update service state when a form field changes
   onFieldChange<K extends keyof SignupFormFields>(field: K, value: SignupFormFields[K]) {
@@ -29,10 +32,8 @@ export class TemplateDrivenSignalForm {
   }
 
   onSubmit() {
-    // Get the latest value from the signal for submission
-    console.log('Form submitted:', this.formState());
-    // You could now call another service method to send data to a backend
-    // this.signupService.submitData(this.formState());
+    // Delegate submission to the service
+    this.signupService.submitForm();
   }
 
   resetForm() {

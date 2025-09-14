@@ -4,29 +4,41 @@
         <!-- Name Input -->
         <input type="text" [ngModel]="formState().name" (ngModelChange)="onFieldChange('name', $event)" name="name" placeholder="Enter your name" required #nameField="ngModel" [ngClass]="{'error-field': nameField.invalid && nameField.touched}"/>
         <p [class.mb-0]="nameField.invalid && nameField.touched">Your name is: {{ formState().name }}</p>
-        <p *ngIf="nameField.invalid && nameField.touched" style="color: red;">Name is required.</p>
+        @if (nameField.invalid && nameField.touched) {
+            <p style="color: red;">Name is required.</p>
+        }
         
         <!-- Email Input -->
         <input type="text" [ngModel]="formState().email" (ngModelChange)="onFieldChange('email', $event)" name="email" placeholder="Enter your email" required #emailField="ngModel" [ngClass]="{'error-field': emailField.invalid && emailField.touched || (emailField.valid && !isEmailValid() && emailField.touched)}"/>
         <p [class.mb-0]="emailField.invalid && emailField.touched">Your email is: {{ formState().email }}</p>
-        @if(emailField.invalid && emailField.touched) {
+        @if (emailField.invalid && emailField.touched) {
             <p style="color: red;">Email is required.</p>
         }
-        <p *ngIf="emailField.valid && !isEmailValid() && emailField.touched" style="color: red;">Please enter a valid email address.</p>
+        @if (emailField.valid && !isEmailValid() && emailField.touched) {
+            <p style="color: red;">Please enter a valid email address.</p>
+        }
         
         <!-- Password Input -->
         <input type="password" [ngModel]="formState().password" (ngModelChange)="onFieldChange('password', $event)" name="password" placeholder="Enter your password" required #passwordField="ngModel" [ngClass]="{'error-field': passwordField.invalid && passwordField.touched || (passwordField.touched && !isPasswordStrong())}"/>
         <p [class.mb-0]="passwordField.invalid && passwordField.touched">Your password is: {{ formState().password }}</p>
-        <p *ngIf="passwordField.invalid && passwordField.touched" style="color: red;">Password is required.</p>
-        <p *ngIf="passwordField.touched && !isPasswordStrong()" style="color: red;">Password must be at least 8 characters long, contain one uppercase, one lowercase, one number, and one special character.</p>
+        @if (passwordField.invalid && passwordField.touched) {
+            <p style="color: red;">Password is required.</p>
+        }
+        @if (passwordField.touched && !isPasswordStrong()) {
+            <p style="color: red;">Password must be at least 8 characters long, contain one uppercase, one lowercase, one number, and one special character.</p>
+        }
 
         <!-- Confirm Password Input -->
         <input type="password"
         [ngModel]="formState().confirmPassword" (ngModelChange)="onFieldChange('confirmPassword', $event)" name="confirmPassword" placeholder="Confirm your password" required #confirmPasswordField="ngModel" 
         [ngClass]="{'error-field': confirmPasswordField.invalid && confirmPasswordField.touched || (confirmPasswordField.valid && !doPasswordsMatch() && confirmPasswordField.touched)}"/>
         <p [class.mb-0]="confirmPasswordField.invalid && confirmPasswordField.touched">Confirm your password: {{ formState().confirmPassword }}</p>
-        <p *ngIf="confirmPasswordField.invalid && confirmPasswordField.touched" style="color: red;">Confirm Password is required.</p>
-        <p *ngIf="confirmPasswordField.valid && !doPasswordsMatch() && confirmPasswordField.touched" style="color: red;">Passwords do not match.</p>
+        @if (confirmPasswordField.invalid && confirmPasswordField.touched) {
+            <p style="color: red;">Confirm Password is required.</p>
+        }
+        @if (confirmPasswordField.valid && !doPasswordsMatch() && confirmPasswordField.touched) {
+            <p style="color: red;">Passwords do not match.</p>
+        }
 
         <!-- Newsletter Checkbox -->
         <p>
@@ -35,12 +47,20 @@
         </p>
 
         <!-- Global Form Validation Message -->
-        <p *ngIf="!isFormValid()" style="color: red;">
-            Please fill out all required fields and ensure all validations pass before submitting.
-        </p>
+        @if (!isFormValid()) {
+            <p style="color: red;">Please fill out all required fields and ensure all validations pass before submitting.</p>
+        }
+
+        <!-- API Error Message -->
+        @if (error()) {
+            <p style="color: red; font-weight: bold;">{{ error() }}</p>
+        }
 
         <!-- Action Buttons -->
-        <button [ngClass]="isFormValid() ? 'btn btn-primary me-3' : 'btn btn-secondary me-3'" [disabled]="!isFormValid()" type="submit">Submit</button>
+        <button [ngClass]="isFormValid() ? 'btn btn-primary me-3' : 'btn btn-secondary me-3'" [disabled]="!isFormValid() || loading()" type="submit">
+            @if (loading()) { <span>Submitting...</span> }
+            @else { <span>Submit</span> }
+        </button>
         <button class="btn btn-secondary" (click)="resetForm()">Reset Form</button>
     </form>
 </div>
